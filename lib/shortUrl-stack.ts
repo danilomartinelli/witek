@@ -122,11 +122,11 @@ export class ShorUrlStack extends cdk.Stack {
             schema: {
                 type: apigateway.JsonSchemaType.OBJECT,
                 properties: {
-                    shortUrl: {
+                    longUrl: {
                         type: apigateway.JsonSchemaType.STRING,
                     },
                 },
-                required: ['shortUrl'],
+                required: ['longUrl'],
             },
         });
 
