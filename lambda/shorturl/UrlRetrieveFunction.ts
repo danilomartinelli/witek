@@ -30,7 +30,17 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
             })
             .promise();
 
-        if (!data.Item) throw new Error('Data not found');
+        if (!data.Item) {
+            return {
+                statusCode: 302,
+                headers: {
+                    location: 'https://witek.com.br/404',
+                },
+                body: JSON.stringify({
+                    message: 'Data not found, Redirect to 404 page.',
+                }),
+            };
+        }
 
         return {
             statusCode: 301,

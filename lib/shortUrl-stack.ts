@@ -109,9 +109,34 @@ export class ShorUrlStack extends cdk.Stack {
         const shortUrlCreateIntegration = new apigateway.LambdaIntegration(urlShortenerCreate);
         const urlRetrieveIntegration = new apigateway.LambdaIntegration(urlRetrieve);
 
-        // "/short"
+        // "/c"
+        const shortUrlValidator = new apigateway.RequestValidator(this, 'ShortUrlValidator', {
+            restApi: api,
+            requestValidatorName: 'Short URL request validator',
+            validateRequestBody: true,
+        });
+        const shortUrlModel = new apigateway.Model(this, 'ShortUrlModel', {
+            modelName: 'ShortUrlModel',
+            restApi: api,
+            contentType: 'application/json',
+            schema: {
+                type: apigateway.JsonSchemaType.OBJECT,
+                properties: {
+                    shortUrl: {
+                        type: apigateway.JsonSchemaType.STRING,
+                    },
+                },
+                required: ['shortUrl'],
+            },
+        });
+
         const shortUrlResource = api.root.addResource('c');
-        shortUrlResource.addMethod('POST', shortUrlCreateIntegration);
+        shortUrlResource.addMethod('POST', shortUrlCreateIntegration, {
+            requestValidator: shortUrlValidator,
+            requestModels: {
+                'application/json': shortUrlModel,
+            },
+        });
 
         shortUrlResource.addCorsPreflight({
             allowHeaders: ['Content-Type', 'X-Amz-Date', 'Authorization', 'X-Api-Key'],

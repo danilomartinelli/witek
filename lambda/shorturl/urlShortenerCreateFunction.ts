@@ -38,7 +38,7 @@ export async function handler(event: APIGatewayProxyEvent, context: Context): Pr
         const shortUrl = APP_URL + shortId;
         const { longUrl } = JSON.parse(event.body) as { longUrl: string };
         const timestamp = Date.now();
-        const ttl = ~~(timestamp / 1000 + 5 * 60); // 5 minutes (ONLY TO TEST TTL)
+        const ttl = ~~(timestamp / 1000 + 60 * 365 * 5 * 60); // 5 years
 
         if (!validateURL(longUrl)) throw new Error('Invalid URL');
 
