@@ -95,7 +95,7 @@ export class ShorUrlStack extends cdk.Stack {
                 sourceMap: false,
             },
             environment: {
-                APP_URL: `https://${rootDomain}/t/`,
+                APP_URL: `https://short.${rootDomain}/t/`,
                 SIZE: '12',
                 URL_SHORTENER_TABLE: urlShortenerTable.tableName,
             },
