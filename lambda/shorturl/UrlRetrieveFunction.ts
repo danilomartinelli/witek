@@ -2,8 +2,6 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda
 import * as AWSXRay from 'aws-xray-sdk';
 import { DynamoDB } from 'aws-sdk';
 
-import { nanoid } from 'nanoid';
-
 AWSXRay.captureAWS(require('aws-sdk'));
 
 const URL_SHORTENER_TABLE = process.env.URL_SHORTENER_TABLE;
